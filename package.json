@@ -1,1 +1,19 @@
-
+{
+  "name": "grovemonitor-mainRPi",
+  "version": "0.0.1",
+  "description": "This is the main RPi, it establishes the comunication between the server and the monitors/actuators",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Jaime Okhuysen <jamesokbo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.19",
+    "socket.io": "^1.4.6",
+    "socket.io-client":"^1.4.8"
+  }
+}
