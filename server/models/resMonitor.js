@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
-var envMonitorSchema= mongoose.Schema({
+var resMonitorSchema= mongoose.Schema({
     name:String, /*name of the monitor, assigned by the user*/
     mainID:String, /*main RPi's ID from the server*/
     status: Boolean, /*true if connected to the main RPi*/
@@ -21,4 +21,4 @@ var envMonitorSchema= mongoose.Schema({
     resLevelLast: Number, /* % of capacity */
 });
 
-module.exports=mongoose.model('EnvMonitor',envMonitorSchema);
+module.exports=mongoose.model('ResMonitor',resMonitorSchema);
