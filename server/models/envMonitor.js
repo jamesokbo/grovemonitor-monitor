@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
 var envMonitorSchema= mongoose.Schema({
-    mainID:String, /*main RPi's ID from the server*/
     name:String, /*name of the monitor, assigned by the user*/
     status: Boolean, /*true if connected to the main RPi*/
     lastConnection: Date, /*Last connection to the main RPi*/
