@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
 
 var phSchema= mongoose.Schema({
-  status:Boolean,
 	resMonID:String,
-  mainID:String,
+	mainID:String,
+	status:Boolean,
 	compensated:Boolean, 
 	reading:Number, 
 	date:Number,
