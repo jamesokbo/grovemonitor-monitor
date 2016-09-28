@@ -62,6 +62,9 @@ socketToSever.on('connect',function(){
         }
       }
       else{
+        if(res.error){
+          console.log(res.error);
+        }
         socketToServer.disconnect();
       }
     });
