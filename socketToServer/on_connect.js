@@ -1,16 +1,16 @@
 var fs=require('fs');
 var constants= require('./constants.js')
+var envVariables=require('./envVariables.js')
 
-module.exports = function(serverURL){
-  var io=require('socket.io-client')(URL);
-  io.on('connect',function(){
+module.exports = function(socket){
+  socket.on('connect',function(){
     fs.readFile(constants.MAIN_ID_PATH,'utf8',function(err,data){
       if(err){
         console.log(err);
         throw err;
       }
-      constants.mainID=data;
-      io.emit('identification', {mainID: constants.mainID}, function(err,res){
+      constants.MAIN_ID=data;
+      socket.emit('identification', {mainID: constants.MAIN_ID}, function(err,res){
         if(err){
           console.log(err);
           throw err;
@@ -22,8 +22,8 @@ module.exports = function(serverURL){
                 console.log(err);
                 throw err;
               }
-              constants.mainID=res.id;
-              io.disconnect();
+              constants.MAIN_ID=res.id;
+              socket.disconnect();
             });
           }
           else{
@@ -34,7 +34,7 @@ module.exports = function(serverURL){
           if(res.error){
             console.log(res.error);
           }
-          socketToServer.disconnect();
+          socket.disconnect();
         }
       });
     });
