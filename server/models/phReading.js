@@ -3,7 +3,6 @@ var Schema=mongoose.Schema;
 
 var phSchema= mongoose.Schema({
 	resMonID:String,
-	mainID:String,
 	status:Boolean,
 	compensated:Boolean, 
 	reading:Number, 
