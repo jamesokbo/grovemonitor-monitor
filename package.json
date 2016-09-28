@@ -10,7 +10,6 @@
   "author": "Jaime Okhuysen <jamesokbo@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "mongoose": "^4.4.19",
     "socket.io": "^1.4.6",
