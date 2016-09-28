@@ -27,7 +27,7 @@ module.exports = function(serverURL){
             });
           }
           else{
-            constants.connectionStatus=true;
+            constants.serverConnectionStatus=true;
           }
         }
         else{
