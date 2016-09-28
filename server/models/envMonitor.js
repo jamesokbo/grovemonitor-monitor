@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
 var envMonitorSchema= mongoose.Schema({
-    envMonID:String, /*ID assigned by the mainRPi on first 'identification', kept as a .txt file in the resMonitor*/
+    envMonID:String, /*ID assigned by the mainRPi on first 'identification', kept as a .txt file in the envMonitor*/
     mainID:String, /*main RPi's ID from the server to whom this resMonitor belongs to*/
     name:String, /*name of the monitor, assigned by the user*/
     status: Boolean, /*true if connected to the main RPi*/
