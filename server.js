@@ -1,4 +1,5 @@
 var fs=require('fs');
+var async= require('async');
 var express =require('express');
 var app=express();
 
@@ -19,57 +20,11 @@ var ResMonitor=require('./server/models/resMonitor');
 var PhReading=require('./server/models/phReading');
 //TODO: Missing ResMonitor Sensor readings
 //TODO: Mongoose EnvMonitor and its sensor readings' schemas
-
-//Arrays of connected monitors
-var envMonitors=[];
-var resMonitors=[];
-var envMonitorIDs=[];
-var resMonitorIDs=[];
-
-//Environment variables
-var mainIDPath='';
-var connectedToServer=false;
-
-var socketToServer = require('socket.io-client')(serverURL);
-
 //TODO: Add Actuators arrays and schemas
 //TODO: ADD SOCKETIO COMMUNICATIONS
+
 //TODO: Add SocketIO communication protocol with the server
-socketToSever.on('connect',function(){
-  fs.readFile(mainIDPath,'utf8',function(err,data){
-    if(err){
-      console.log(err);
-      throw err;
-    }
-    socketToServer.emit('identification', {mainID: data}, function(err,res){
-      if(err){
-        console.log(err);
-        throw err;
-      }
-      if(res.status){
-        if(res.new){
-          fs.writeFile(mainIDPath, res.id, 'utf8', function(err){
-            if(err){
-              console.log(err);
-              throw err;
-            }
-            mainID=res.id;
-            socketToServer.disconnect();
-          });
-        }
-        else{
-          connectedToServer=true;
-        }
-      }
-      else{
-        if(res.error){
-          console.log(res.error);
-        }
-        socketToServer.disconnect();
-      }
-    });
-  });
-});
+var socketToServer = require('./socketToServer.js');
 //TODO: Add SocketIO communication protocol with the envMonitor
 //TODO: Add SocketIO communication protocol with the resMonitor
 //TODO: Add SocketIO communication protocol with the actuators
