@@ -1,6 +1,6 @@
 var fs=require('fs');
-var constants= require('./constants.js')
-var envVariables=require('./envVariables.js')
+var constants= require('../../constants.js')
+var envVariables=require('../../envVariables.js')
 
 module.exports = function(socket){
   socket.on('connect',function(){
@@ -27,7 +27,7 @@ module.exports = function(socket){
             });
           }
           else{
-            constants.serverConnectionStatus=true;
+            envVariables.serverConnectionStatus=true;
           }
         }
         else{
@@ -38,6 +38,5 @@ module.exports = function(socket){
         }
       });
     });
-  });
-  
+  }); 
 }
