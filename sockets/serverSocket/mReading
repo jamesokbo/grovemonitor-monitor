@@ -1,0 +1,27 @@
+var constants= require('../../../constants.js')
+var envVariables=require('../../../envVariables.js')
+
+module.exports = function(socket){
+  socket.on('mReading',function(data,fn){
+    if(data.resMonitorID){
+      if(envVariables.resMonitorsIDs.indexOf(data.resMonitorID)){
+        envVariables.resMonitors[resMonitorsIDs.indexOf(data.resMonitorID)].emit('mReading',data,function(err,ans){
+          if(err){
+            console.log(err);
+            throw err;
+          }
+          fn(ans);
+        });
+      }
+      else{
+        envVariables.envMonitors[envMonitorsIDs.indexOf(data.envMonitorID)].emit('mReading',data,function(err,ans){
+          if(err){
+            console.log(err);
+            throw err;
+          }
+          fn(ans);
+        });
+      }
+     } 
+  });
+}
