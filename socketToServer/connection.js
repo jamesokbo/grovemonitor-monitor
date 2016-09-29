@@ -39,4 +39,7 @@ module.exports = function(socket){
       });
     });
   }); 
+  socket.on('disconnect',function(){
+    envVariables.serverConnectionStatus=false;
+  });
 }
