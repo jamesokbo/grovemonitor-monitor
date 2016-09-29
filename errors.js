@@ -1,3 +1,3 @@
 module.exports={
-  rm001: 'rm001: The requested monitor has lost connectivity'
+  m001: Error('rm001: The requested monitor has lost connectivity')
 }
