@@ -25,8 +25,8 @@ var PhReading=require('./server/models/phReading');
 
 //TODO: Add SocketIO communication protocol with the server
 //-Pass requests from server to envMonitor and resMonitor
-var socketToServer=require('socket.io-client')(constants.SERVER_URL);
-require('./socketToServer/on_connect.js')(socketToServer);
+var serverSocket=require('socket.io-client')(constants.SERVER_URL);
+require('./sockets/serverSocket/connection.js')(serverSocket);
 
 //TODO: Add SocketIO communication protocol with the envMonitor
 //TODO: Add SocketIO communication protocol with the resMonitor
