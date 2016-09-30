@@ -30,7 +30,7 @@ monitorIO.on('connection', function(monitorSocket){
   monitorSocket.monitor=new Monitor();
   
   require('./sockets/monitorSockets/identification.js')(monitorSocket);
-  require('./sockets/monitorSockets/identification.js')(monitorSocket);
+  require('./sockets/monitorSockets/rReading.js')(monitorSocket);
 };
 
 //TODO: Add SocketIO communication protocol with the actuators
