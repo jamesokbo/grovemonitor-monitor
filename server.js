@@ -19,12 +19,20 @@ var Monitor=require('./server/models/monitor');
 //TODO: ADD SOCKETIO COMMUNICATIONS
 
 //TODO: Add SocketIO communication protocol with the server
-//-Pass requests from server to envMonitor and resMonitor
+//-Pass requests from server to monitors
 var serverSocket=require('socket.io-client')(constants.SERVER_URL);
 require('./sockets/serverSocket/connection.js')(serverSocket);
+require('./sockets/serverSocket/mReading.js')(serverSocket);
 
-//TODO: Add SocketIO communication protocol with the envMonitor
-//TODO: Add SocketIO communication protocol with the resMonitor
+//TODO: Add SocketIO communication protocol with the monitors
+monitorIO.on('connection', function(monitorSocket){
+  monitorSocket.monID='';
+  monitorSocket.monitor=new Monitor();
+  
+  require('./sockets/monitorSockets/identification.js')(monitorSocket);
+  require('./sockets/monitorSockets/identification.js')(monitorSocket);
+};
+
 //TODO: Add SocketIO communication protocol with the actuators
 
 Monitor.update({},{$set:{status:false}},{multi:true},function(err,res){
