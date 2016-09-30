@@ -1,4 +1,5 @@
 module.exports={
   m001: Error('m001: The requested monitor has lost connection'),
-  m002: Error('m002: The requested monitor isnt recognized by this system')
+  m002: Error('m002: The requested monitor isnt recognized by this system'),
+  m003: Error('m003: Unidentified monitor')
 }
