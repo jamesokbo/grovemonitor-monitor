@@ -1,7 +1,5 @@
 module.exports={
-  envMonitors:[],
-  resMonitors:[],
-  envMonitorIDs:[],
-  resMonitorIDs:[],
+  monitors:[],
+  monitorIDs:[],
   serverConnectionStatus:false    
 }
