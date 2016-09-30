@@ -16,8 +16,8 @@ mongoose.connect(configDB.url);
 //Mongoose ResMonitor and its sensor readings' schemas
 var Monitor=require('./server/models/monitor');
 //TODO: Add Actuators arrays and schemas
-//TODO: ADD SOCKETIO COMMUNICATIONS
 
+//TODO: ADD SOCKETIO COMMUNICATIONS
 //TODO: Add SocketIO communication protocol with the server
 //-Pass requests from server to monitors
 var serverSocket=require('socket.io-client')(constants.SERVER_URL);
