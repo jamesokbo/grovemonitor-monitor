@@ -1,5 +1,6 @@
 var RReading=require('../../../server/models/rReading.js');
 var envVariables=require('../../../envVariables.js');
+var errors=require('../../../errors.js');
 
 module.exports=function(socket, serverSocket){
   socket.on('rReading',function(data,fn){
@@ -22,5 +23,8 @@ module.exports=function(socket, serverSocket){
         });
       }
     }
-  }
+    else{
+      fn(errors.m003);
+    }
+  });
 }
