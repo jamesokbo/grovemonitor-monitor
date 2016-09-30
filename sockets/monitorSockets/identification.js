@@ -49,6 +49,9 @@ module.exports=function(socket, serverSocket){
           });
         });
       }
+      else{
+        fn(errors.m004);
+      }
     }
   });
 }
