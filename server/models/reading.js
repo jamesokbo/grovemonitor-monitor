@@ -3,7 +3,7 @@ var Schema=mongoose.Schema;
 
 var readingSchema= mongoose.Schema({
 	monitorID:String,
-	readingType:String, //Value: 'pH','EC', 'wTemp', 'wLevel', 'DO', 'aTemp', 'RH', 'lux', 'CO2'
+	type:String, //Value: 'ph','ec', 'wTemp', 'wLevel', 'do', 'aTemp', 'rh', 'lux', 'co2'
 	compensated:{type:Boolean,default:false}, 
 	reading:{type:Number,default:0}, 
 	date:{type:Number,default:Date.now()}
