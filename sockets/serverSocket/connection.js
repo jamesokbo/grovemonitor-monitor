@@ -51,11 +51,11 @@ module.exports = function(socket){
                           }
                         });
                       });
-                    i++;
+                      i++;
                     }
-                  });                       
-               );
-               j++;
+                  });
+                  j++;
+                );
               ); 
             });
           }
