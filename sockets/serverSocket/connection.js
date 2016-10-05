@@ -34,7 +34,7 @@ module.exports = function(socket){
               }
               var i=0;
               var j=0;
-              async.whilst(i<docs.length
+              async.whilst(i<docs.length,
                 async.whilst(i==j,
                   socket.emit('rReading',docs[i],function(err,res){
                     if(err){
