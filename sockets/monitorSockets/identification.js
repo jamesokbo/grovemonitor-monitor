@@ -5,23 +5,23 @@ var envVariables=require('../../../envVariables.js');
 
 module.exports=function(socket, serverSocket){
   socket.on('identification',function(data, fn){
-    if(data.monID!='' && data.monID!=null){
-      socket.monID=mongoose.Types.ObjectId(data.monID);
+    if(data.monitorID!='' && data.monitorID!=null){
+      socket.monitorID=mongoose.Types.ObjectId(data.monitorID);
     
-      Monitor.find({monID:socket.monID},function(err,docs){
+      Monitor.find({monitorID:socket.monitorID},function(err,docs){
         if(err){
           throw err;
         }
         if(docs.length!=0){
-          Monitor.update({monID:socket.monID},{$set:{status:true, lastConnection:Date(Date.now())}},function(err,res){
+          Monitor.update({monitorID:socket.monitorID},{$set:{status:true, lastConnection:Date(Date.now())}},function(err,res){
             if(err){
               throw err;
             }
             console.log(res.ok+' '+res.nModified);
             if(res.ok==1 && res.nModified==1){
-              envVariables.monitorIDs.push(socket.monID.toString());
+              envVariables.monitorIDs.push(socket.monitorID.toString());
               envVariables.monitors.push(socket);
-              console.log('monitor '+ socket.monID+' has succesfully been identified');
+              console.log('monitor '+ socket.monitoID+' has succesfully been identified');
               console.log('monitorIDs length: '+ envVariables.monitorIDs.length+', monitors length: '+envVariables.monitors.length);
               fn({status:true});
             }
@@ -33,7 +33,7 @@ module.exports=function(socket, serverSocket){
         }
       });
     }
-      //If ID is empty its a new monitor. The server has to save it and assign a 'monID' value.
+      //If ID is empty its a new monitor. The server has to save it and assign a 'monitorID' value.
     else{ 
       if(envVariables.serverConnectionStatus){
         serverSocket.emit('newMonitor',data,function(err,res){
