@@ -1,8 +1,8 @@
 var constants= require('../../../constants.js');
 var errors= require('../../../errors.js');
 var envVariables=require('../../../envVariables.js');
-var EnvMonitor=require('../../../server/models/envMonitor.js');
-var ResMonitor=require('../../../server/models/resMonitor.js');
+var Monitor=require('../../../server/models/monitor.js');
+
 
 module.exports = function(socket){
   socket.on('mReading',function(data,fn){
