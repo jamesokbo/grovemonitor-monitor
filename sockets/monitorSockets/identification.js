@@ -45,7 +45,7 @@ module.exports=function(socket, serverSocket){
             if(err){
               throw err;
             }
-            fn({status:true, new: true, monID:socket.monID});
+            fn({status:true, new: true, monitorID:socket.monitorID});
           });
         });
       }
