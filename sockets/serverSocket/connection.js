@@ -12,13 +12,13 @@ module.exports = function(socket){
         throw err;
       }
       constants.MAIN_ID=data;
-      socket.emit('identification', {mainID: constants.MAIN_ID}, function(err,res){
+      socket.emit('identification', {mainRPiID: constants.MAIN_ID}, function(err,res){
         if(err){
           throw err;
         }
         if(res.status){
           if(res.new){
-            fs.writeFile(constants.MAIN_ID_PATH, res.mainID, 'utf8', function(err){
+            fs.writeFile(constants.MAIN_ID_PATH, res.mainRPiID, 'utf8', function(err){
               if(err){
                 throw err;
               }
