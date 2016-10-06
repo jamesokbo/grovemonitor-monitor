@@ -7,7 +7,7 @@ var Monitor=require('../../../server/models/monitor.js');
 module.exports = function(socket){
   socket.on('mReading',function(data,fn){
     if(envVariables.monitorIDs.indexOf(data.monitorID)!=-1){
-      envVariables.monitors[monitorIDs.indexOf(data.monitorID)].emit('mReading',data,function(err,res){
+      envVariables.monitors[envVariables.monitorIDs.indexOf(data.monitorID)].emit('mReading',data,function(err,res){
         if(err){
           fn(err);
         }
