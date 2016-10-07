@@ -1,5 +1,5 @@
 module.exports={
-  MAIN_ID_PATH:'',
+  MAINRPIID_PATH:'',
   SERVER_URL:'',
-  MAIN_ID:''
+  MAINRPIID:''
 }
