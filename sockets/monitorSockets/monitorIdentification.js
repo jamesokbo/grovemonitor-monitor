@@ -45,13 +45,22 @@ module.exports=function(socket, serverSocket){
           if(err){
             fn(err);
           }
-          socket.monitor=new Monitor(res);
-          socket.monitor.save(function(err,mon){
-            if(err){
-              throw err;
-            }
-            fn(res);
-          });
+          if(res.status && res.new){
+            Monitor.save(function(err,mon){
+              if(err){
+                throw err;
+              }
+              Monitor.update({_id:mon._id},{$set:{monitorID:res.monitorID}},function(err){
+                if(err){
+                  throw err;
+                }
+                fn(res);
+              });
+            });
+          }
+          else{
+            fn(errors.s005);
+          }
         });
       }
       else{
