@@ -1,4 +1,8 @@
-
+var fs=require('fs');
+var async=require('../../../async');
+var constants= require('../../../constants.js');
+var envVariables=require('../../../envVariables.js');
+var Reading=require('../../../server/models/reading.js');
 
 module.exports=function(socket){
   socket.emit('identification', {mainRPiID: constants.MAIN_ID}, function(err,res){
