@@ -4,7 +4,7 @@ var Monitor=require('../../../server/models/monitor.js');
 var envVariables=require('../../../envVariables.js');
 
 module.exports=function(socket, serverSocket){
-  socket.on('identification',function(data, fn){
+  socket.on('monitorIdentification',function(data, fn){
     if(data.monitorID!='' && data.monitorID!=null){
       socket.monitorID=mongoose.Types.ObjectId(data.monitorID);
     
@@ -13,7 +13,7 @@ module.exports=function(socket, serverSocket){
           throw err;
         }
         if(docs.length!=0){
-          Monitor.update({monitorID:socket.monitorID},{$set:{status:true, lastConnection:Date(Date.now())}},function(err,res){
+          Monitor.update({monitorID:socket.monitorID},{$set:{status:true, lastConnection:Date.now()}},function(err,res){
             if(err){
               throw err;
             }
@@ -21,9 +21,12 @@ module.exports=function(socket, serverSocket){
             if(res.ok==1 && res.nModified==1){
               envVariables.monitorIDs.push(socket.monitorID.toString());
               envVariables.monitors.push(socket);
-              console.log('monitor '+ socket.monitoID+' has succesfully been identified');
-              console.log('monitorIDs length: '+ envVariables.monitorIDs.length+', monitors length: '+envVariables.monitors.length);
-              fn({status:true});
+              serverSocket.emit('monitorIdentification',data,function(err,res){
+                if(err){
+                  fn(err);
+                }
+                fn(res);
+              });
             }
           });
         }
