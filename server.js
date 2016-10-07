@@ -29,7 +29,7 @@ require('./sockets/serverSocket/changeReservoirSize.js')(serverSocket);
 monitorIO.on('connection', function(monitorSocket){
   monitorSocket.monitorID='';
   
-  require('./sockets/monitorSockets/identification.js')(monitorSocket);
+  require('./sockets/monitorSockets/monitorIdentification.js')(monitorSocket);
   require('./sockets/monitorSockets/rReading.js')(monitorSocket);
   require('./sockets/monitorSockets/disconnect.js')(monitorSocket);
 };
