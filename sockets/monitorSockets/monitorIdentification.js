@@ -21,12 +21,14 @@ module.exports=function(socket, serverSocket){
             if(res.ok==1 && res.nModified==1){
               envVariables.monitorIDs.push(socket.monitorID.toString());
               envVariables.monitors.push(socket);
-              serverSocket.emit('monitorIdentification',data,function(err,res){
-                if(err){
-                  fn(err);
-                }
-                fn(res);
-              });
+              if(envVariables.serverConnectionStatus){
+                serverSocket.emit('monitorIdentification',data,function(err,res){
+                  if(err){
+                    fn(err);
+                  }
+                  fn(res);
+                });
+              }
             }
           });
         }
@@ -39,16 +41,16 @@ module.exports=function(socket, serverSocket){
       //If ID is empty its a new monitor. The server has to save it and assign a 'monitorID' value.
     else{ 
       if(envVariables.serverConnectionStatus){
-        serverSocket.emit('newMonitor',data,function(err,res){
+        serverSocket.emit('monitorIdentification',data,function(err,res){
           if(err){
-            throw err;
+            fn(err);
           }
           socket.monitor=new Monitor(res);
           socket.monitor.save(function(err,mon){
             if(err){
               throw err;
             }
-            fn({status:true, new: true, monitorID:socket.monitorID});
+            fn(res);
           });
         });
       }
