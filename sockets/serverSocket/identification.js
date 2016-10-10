@@ -26,12 +26,8 @@ module.exports=function(socket){
             throw err;
           }
           //MainRPi states what monitors are currently connected to it
-          socket.emit('connectedMonitors',{monitorIDs:envVariables.monitorIDs},function(err,res){
-            if(err){
-              throw err;
-            }
-            //TODO: add success logic.
-          });
+          require('./connectedMonitors.js')(socket);
+          
           var i=0;
           var j=0;
           
