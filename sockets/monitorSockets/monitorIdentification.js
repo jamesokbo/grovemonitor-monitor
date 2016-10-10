@@ -26,6 +26,9 @@ module.exports=function(socket, serverSocket){
                   if(err){
                     fn(err);
                   }
+                  if(res.status){
+                    require('./connectedMonitors.js')(serverSocket);
+                  }
                   fn(res);
                 });
               }
