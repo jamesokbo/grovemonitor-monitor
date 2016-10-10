@@ -26,34 +26,8 @@ module.exports=function(socket){
             throw err;
           }
           //MainRPi states what monitors are currently connected to it
-          require('./connectedMonitors.js')(socket);
-          
-          var i=0;
-          var j=0;
-          
-          async.whilst(function(){i<docs.length},function(){
-              async.whilst(function(){i==j},function(){
-                  socket.emit('rReading',docs[i],function(err,res){
-                    if(err){
-                      throw err;
-                    }
-                    if(res.status){
-                      Reading.findById(docs[i]._id,function(err,doc){
-                        if(err){
-                          throw err;
-                        }
-                        doc.remove(function(err,res){
-                          if(err){
-                            throw err;
-                          }
-                        });
-                      });
-                      i++;
-                    }
-                   });
-              j++;
-              },function(){});
-          },function(){});
+          require('./functions/connectedMonitors.js')(socket);
+          require('./functions/flushReadings.js')(socket);
         });
       }
     }
