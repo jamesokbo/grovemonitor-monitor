@@ -25,6 +25,13 @@ module.exports=function(socket){
           if(err){
             throw err;
           }
+          //MainRPi states what monitors are currently connected to it
+          socket.emit('connectedMonitors',{envVariables.monitorIDs},function(err,res){
+            if(err){
+              throw err;
+            }
+            //TODO: add success logic.
+          });
           var i=0;
           var j=0;
           
