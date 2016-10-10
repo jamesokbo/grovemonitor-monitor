@@ -11,8 +11,8 @@ var mongoose= require('mongoose');
 var configDB= require('./server/config/database.js');
 mongoose.connect(configDB.url);
 
-var envVariables=require('envVariables.js');
-var constants=require('constants.js');
+var envVariables=require('./envVariables.js');
+var constants=require('./constants.js');
 
 //MONGOOSE SCHEMAS
 
