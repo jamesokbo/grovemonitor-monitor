@@ -1,8 +1,8 @@
 var fs=require('fs');
-var async=require('../../../async');
-var constants= require('../../../constants.js');
-var envVariables=require('../../../envVariables.js');
-var Reading=require('../../../server/models/reading.js');
+var async=require('../../../../async');
+var constants= require('../../../../constants.js');
+var envVariables=require('../../../../envVariables.js');
+var Reading=require('../../../../server/models/reading.js');
 
 module.exports=function(socket){
   socket.emit('identification', {mainRPiID: constants.MAIN_ID}, function(err,res){
@@ -26,8 +26,8 @@ module.exports=function(socket){
             throw err;
           }
           //MainRPi states what monitors are currently connected to it
-          require('./functions/connectedMonitors.js')(socket);
-          require('./functions/flushReadings.js')(socket);
+          require('./connectedMonitors.js')(socket);
+          require('./flushReadings.js')(socket);
         });
       }
     }
