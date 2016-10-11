@@ -17,7 +17,7 @@ var monitorSchema= mongoose.Schema({
     ec:{status: Boolean, lastReading:Number, lastDate:Number, lBound:Number, uBound:Number},
     do:{status: Boolean, lastReading:Number, lastDate:Number, lBound:Number, uBound:Number},
     wTemp:{status: Boolean, lastReading:Number, lastDate:Number, lBound:Number, uBound:Number},
-    usReaderLast: {status: Boolean, lastReading:Number, lastDate:Number}, /*last distance reading*/
+    usReader: {status: Boolean, lastReading:Number, lastDate:Number}, /*last distance reading*/
     resLevel: {lastReading:Number, lastDate:Number, lBound:Number, uBound:Number}, /* % of capacity */
 });
 
