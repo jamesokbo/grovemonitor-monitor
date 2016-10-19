@@ -5,7 +5,7 @@ var monitorSchema= mongoose.Schema({
     mainID:String, /*main RPi's ID to whom this resMonitor belongs to*/
     type:String, /*either envMonitor or resMonitor*/
     name:String, /*name of the monitor, assigned by the user*/
-    status: Boolean, /*true if connected to the main RPi*/
+    status: String, /*disconnected, warning or ok*/
     lastConnection: Date, /*Last connection to the main RPi*/
     resSize: {height: {type:Number,default:0}, area:{type:Number,default:0}}, /*height and area of reservoir, set by the user*/
     tempUnit:{type: String, default:'Celsius'},
