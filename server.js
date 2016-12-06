@@ -27,6 +27,8 @@ var serverSocket=require('socket.io-client')(constants.SERVER_URL);
 require('./sockets/serverSocket/connection.js')(serverSocket);
 require('./sockets/serverSocket/mReading.js')(serverSocket);
 require('./sockets/serverSocket/changeReservoirSize.js')(serverSocket);
+require('./sockets/serverSocket/editLBound.js')(serverSocket);
+//TODO: Test 'editLBound' script and create 'editUBound'
 
 //TODO: Add SocketIO communication protocol with the monitors
 monitorIO.on('connection', function(monitorSocket){
