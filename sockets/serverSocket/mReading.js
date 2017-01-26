@@ -9,7 +9,7 @@ module.exports = function(socket){
     if(envVariables.monitorIDs.indexOf(data.monitorID)!=-1){
       envVariables.monitors[envVariables.monitorIDs.indexOf(data.monitorID)].emit('mReading',data,function(err,res){
         if(err){
-          fn(err);
+          throw err;
         }
         fn(res);
       });
@@ -20,12 +20,12 @@ module.exports = function(socket){
           throw err;
         }
         if(docs.length!=0){
-          fn(errors.m001);
+          fn(null,errors.m001);
         }
         else{
-          fn(errors.m002);
+          fn(null,errors.m002);
         }
       });
     }
   });
-}
+};

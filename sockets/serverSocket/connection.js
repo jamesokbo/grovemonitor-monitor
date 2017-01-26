@@ -11,7 +11,7 @@ module.exports = function(socket){
       if(err){
         throw err;
       }
-      require('./identification.js')(socket);
+      require('./emits/identification.js')(socket);
       constants.MAINRPI_ID=data;
     });
   }); 

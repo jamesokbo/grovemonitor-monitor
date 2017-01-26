@@ -4,8 +4,7 @@ var express =require('express');
 var app=express();
 
 var http= require('http').Server(app);
-var monitorIO=require('socket.io')(http1);
-var serverURL='www.grovemonitor-jamesokbo.c9users.io:8081';
+var monitorIO=require('socket.io')(http);
 
 var mongoose= require('mongoose');
 var configDB= require('./server/config/database.js');
@@ -33,14 +32,14 @@ require('./sockets/serverSocket/editLBound.js')(serverSocket);
 //TODO: Add SocketIO communication protocol with the monitors
 monitorIO.on('connection', function(monitorSocket){
   monitorSocket.monitorID='';
-  
-  require('./sockets/monitorSockets/monitorIdentification.js')(monitorSocket);
-  require('./sockets/monitorSockets/rReading.js')(monitorSocket);
-  require('./sockets/monitorSockets/disconnect.js')(monitorSocket);
-};
+  require('./sockets/monitorSockets/monitorIdentification.js')(monitorSocket,serverSocket);
+  require('./sockets/monitorSockets/rReading.js')(monitorSocket,serverSocket);
+  require('./sockets/monitorSockets/disconnect.js')(monitorSocket,serverSocket);
+});
 
 //TODO: Add SocketIO communication protocol with the actuators
 
+//Initialize server
 Monitor.update({},{$set:{status:false}},{multi:true},function(err,res){
   if(err){
     throw err;

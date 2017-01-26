@@ -14,4 +14,4 @@ module.exports=function(serverSocket){
     }
     //TODO: success logic
   });
-}
+};
