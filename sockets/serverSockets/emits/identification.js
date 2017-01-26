@@ -3,8 +3,8 @@ var async=require('../../../../async');
 var constants= require('../../../../constants.js');
 var envVariables=require('../../../../envVariables.js');
 var Reading=require('../../../../server/models/reading.js');
-var serverMonitorIdentification=require('./serverMonitorIdentification.js');
-var monitorID;
+var emitMonitorIdentification=require('./emitMonitorIdentification.js');
+var emitRReading=require('./emitRReading.js');
 
 module.exports=function(socket){
   socket.emit('identification', {mainRPiID: constants.MAINRPI_ID}, function(err,res){
@@ -25,18 +25,30 @@ module.exports=function(socket){
         envVariables.serverConnectionStatus=true;
         //MainRPi states what monitors are currently connected to it for the server to identify them
         for(var i=0; i<envVariables.monitors.length();i++){
-          serverMonitorIdentification({monitorID:envVariables.monitorIDs[i]},envVariables.monitors[i],socket,function(res,err){
+          emitMonitorIdentification({monitorID:envVariables.monitorIDs[i]},envVariables.monitors[i],socket,function(res,err){
             if(err){
               //TODO: Log error in file
             }
           });
         }
+        //MainRPi passes readings obtained while server connection was down and removes them afterwards
         Reading.find({},function(err,docs){
           if(err){
             throw err;
           }
           for(var i=0; i<docs.length();i++){
-            
+            emitRReading(socket,docs[i],function(res,err){
+              if(err){
+                //TODO: Log error in file
+              }
+              if(res.status){
+                Reading.remove({_id:docs[i]._id},function(err,removed){
+                  if(err){
+                    throw err;
+                  }
+                });
+              }
+            });
           }
         });
       }

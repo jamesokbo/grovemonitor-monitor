@@ -2,13 +2,13 @@ var mongoose=require('../../../mongoose');
 var errors=require('../../../errors.js');
 var Monitor=require('../../../server/models/monitor.js');
 var envVariables=require('../../../envVariables.js');
-var serverMonitorIdentification=require('../serverSocket/emits/serverMonitorIdentification.js');
+var emitMonitorIdentification=require('../serverSocket/emits/emitMonitorIdentification.js');
 
 module.exports=function(socket, serverSocket){
   socket.on('monitorIdentification',function(data, fn){
     if(envVariables.serverConnectionStatus){
       //mainRPi connected to server
-      serverMonitorIdentification(data, socket, serverSocket, function(res,err){
+      emitMonitorIdentification(data, socket, serverSocket, function(res,err){
         if(err){
           //TODO: log this error in a file, monitor not identified by server
           socket.disconnect();

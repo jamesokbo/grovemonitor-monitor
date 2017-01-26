@@ -4,7 +4,7 @@ var envVariables=require('../../../../envVariables.js');
 
 module.exports=function(data,monitorSocket,serverSocket,fn){
     if(envVariables.serverConnectionStatus){
-        serverSocket.emit('serverMonitorIdentification',data,function(err, res) {
+        serverSocket.emit('monitorIdentification',data,function(err, res) {
             if(err){
                 fn(null,err);
                 throw err;
