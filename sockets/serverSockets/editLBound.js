@@ -29,6 +29,6 @@ module.exports=function(socket){
         //unidentified monitor
         fn(null,errors.m003);
       }
-    });
-  });
+    })
+  })
 }

@@ -23,10 +23,10 @@ var Monitor=require('./server/models/monitor');
 //TODO: Add SocketIO communication protocol with the server
 //-Pass requests from server to monitors
 var serverSocket=require('socket.io-client')(constants.SERVER_URL);
-require('./sockets/serverSocket/connection.js')(serverSocket);
-require('./sockets/serverSocket/mReading.js')(serverSocket);
-require('./sockets/serverSocket/changeReservoirSize.js')(serverSocket);
-require('./sockets/serverSocket/editLBound.js')(serverSocket);
+require('./sockets/serverSockets/connection.js')(serverSocket);
+require('./sockets/serverSockets/mReading.js')(serverSocket);
+require('./sockets/serverSockets/changeReservoirSize.js')(serverSocket);
+//require('./sockets/serverSockets/editLBound.js')(serverSocket);
 //TODO: Test 'editLBound' script and create 'editUBound'
 
 //TODO: Add SocketIO communication protocol with the monitors
@@ -45,8 +45,16 @@ Monitor.update({},{$set:{status:false}},{multi:true},function(err,res){
     throw err;
   }
   if(res.ok==1){
-    http.listen(8080,function(){
-      console.log('Monitor socketserver running @ port: 8080');
+    fs.readFile('mainRPiID.txt','utf8',function(err,data){
+    if(err){
+        throw err;
+      }
+      constants.MAINRPI_ID=data;
+      console.log("mainRPiID:"+constants.MAINRPI_ID);
+      http.listen(8080,function(){
+        console.log('Monitor socketserver running @ port: 8080');
+      });
+      
     });
   }
 });

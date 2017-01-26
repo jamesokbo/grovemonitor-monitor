@@ -1,8 +1,8 @@
 var fs=require('fs');
-var async=require('../../../async');
-var constants= require('../../../constants.js');
-var envVariables=require('../../../envVariables.js');
-var Reading=require('../../../server/models/reading.js');
+var async=require('async');
+var constants= require(__dirname+'/../../constants.js');
+var envVariables=require(__dirname+'/../../envVariables.js');
+var Reading=require(__dirname+'/../../server/models/reading.js');
 
 
 module.exports = function(socket){

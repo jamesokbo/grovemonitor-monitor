@@ -1,7 +1,7 @@
-var constants= require('../../../constants.js');
-var errors= require('../../../errors.js');
-var envVariables=require('../../../envVariables.js');
-var Monitor=require('../../../server/models/monitor.js');
+var constants= require(__dirname+'/../../constants.js');
+var errors= require(__dirname+'/../../errors.js');
+var envVariables=require(__dirname+'/../../envVariables.js');
+var Monitor=require(__dirname+'/../../server/models/monitor.js');
 
 module.exports = function(socket){
   socket.on('changeReservoirSize',function(data,fn){

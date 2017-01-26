@@ -1,7 +1,7 @@
-var mongoose=require('../../../mongoose');
-var errors=require('../../../errors.js');
-var Monitor=require('../../../server/models/monitor.js');
-var envVariables=require('../../../envVariables.js');
+var mongoose=require('mongoose');
+var errors=require(__dirname+'/../../errors.js');
+var Monitor=require(__dirname+'/../../server/models/monitor.js');
+var envVariables=require(__dirname+'/../../envVariables.js');
 
 module.exports=function(monitorSocket,serverSocket){
   monitorSocket.on('disconnect', function(){

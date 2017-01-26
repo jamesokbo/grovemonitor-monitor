@@ -1,9 +1,9 @@
-var mongoose=require('../../../mongoose');
-var errors=require('../../../errors.js');
-var Monitor=require('../../../server/models/monitor.js');
-var envVariables=require('../../../envVariables.js');
-var constants=require('../../../constants.js');
-var emitMonitorIdentification=require('../serverSocket/emits/emitMonitorIdentification.js');
+var mongoose=require('mongoose');
+var errors=require(__dirname+'/../../errors.js');
+var Monitor=require(__dirname+'/../../server/models/monitor.js');
+var envVariables=require(__dirname+'/../../envVariables.js');
+var constants=require(__dirname+'/../../constants.js');
+var emitMonitorIdentification=require(__dirname+'./emits/emitMonitorIdentification.js');
 
 module.exports=function(socket, serverSocket){
   socket.on('monitorIdentification',function(data, fn){
