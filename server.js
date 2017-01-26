@@ -45,13 +45,8 @@ Monitor.update({},{$set:{status:false}},{multi:true},function(err,res){
     throw err;
   }
   if(res.ok==1){
-    Monitor.update({},{$set:{status:false}},{multi:true},function(err,res){
-      if(err){
-        throw err;
-      }
-      http.listen(8080,function(){
-        console.log('Monitor socketserver running @ port: 8080');
-      });
+    http.listen(8080,function(){
+      console.log('Monitor socketserver running @ port: 8080');
     });
   }
 });

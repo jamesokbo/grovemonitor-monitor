@@ -39,7 +39,7 @@ module.exports=function(data,monitorSocket,serverSocket,fn){
                 });
             }
             else{
-                //This means that the monitor isn't new but it's not identified by the server
+                //This means that the monitor sent an ID but it's not identified by the server
                 fn(null,errors.m003);
                 monitorSocket.disconnect();
             }

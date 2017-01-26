@@ -7,7 +7,7 @@ var emitMonitorIdentification=require('./emitMonitorIdentification.js');
 var emitRReading=require('./emitRReading.js');
 
 module.exports=function(socket){
-  socket.emit('identification', {mainRPiID: constants.MAINRPI_ID}, function(err,res){
+  socket.emit('mainRPiIdentification', {mainRPiID: constants.MAINRPI_ID}, function(err,res){
     if(err){
       throw err;
     }

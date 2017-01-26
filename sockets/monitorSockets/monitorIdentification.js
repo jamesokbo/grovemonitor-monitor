@@ -2,6 +2,7 @@ var mongoose=require('../../../mongoose');
 var errors=require('../../../errors.js');
 var Monitor=require('../../../server/models/monitor.js');
 var envVariables=require('../../../envVariables.js');
+var constants=require('../../../constants.js');
 var emitMonitorIdentification=require('../serverSocket/emits/emitMonitorIdentification.js');
 
 module.exports=function(socket, serverSocket){
