@@ -1,8 +1,8 @@
 var fs=require('fs');
-var async=require('../../../../async');
-var constants= require('../../../../constants.js');
-var envVariables=require('../../../../envVariables.js');
-var errors=require('../../../../errors.js');
+var async=require('async');
+var constants= require(__dirname+'/../../../constants.js');
+var envVariables=require(__dirname+'/../../../envVariables.js');
+var errors=require(__dirname+'/../../../errors.js');
 
 module.exports=function(serverSocket,reading,fn){
    if(envVariables.serverConnectionStatus){

@@ -26,8 +26,19 @@ var serverSocket=require('socket.io-client')(constants.SERVER_URL);
 require('./sockets/serverSockets/connection.js')(serverSocket);
 require('./sockets/serverSockets/mReading.js')(serverSocket);
 require('./sockets/serverSockets/changeReservoirSize.js')(serverSocket);
+require('./sockets/serverSockets/disconnect.js')(serverSocket);
 //require('./sockets/serverSockets/editLBound.js')(serverSocket);
 //TODO: Test 'editLBound' script and create 'editUBound'
+
+async.whilst(function(){return !envVariables.serverConnectionStatus},
+  function(cb){
+      console.log('attempting to connect');
+      setTimeout(function(){
+         serverSocket.connect();
+         cb();
+      },1000); 
+  }
+);
 
 //TODO: Add SocketIO communication protocol with the monitors
 monitorIO.on('connection', function(monitorSocket){
@@ -45,16 +56,8 @@ Monitor.update({},{$set:{status:false}},{multi:true},function(err,res){
     throw err;
   }
   if(res.ok==1){
-    fs.readFile('mainRPiID.txt','utf8',function(err,data){
-    if(err){
-        throw err;
-      }
-      constants.MAINRPI_ID=data;
-      console.log("mainRPiID:"+constants.MAINRPI_ID);
-      http.listen(8080,function(){
-        console.log('Monitor socketserver running @ port: 8080');
-      });
-      
+    http.listen(8080,function(){
+      console.log('Monitor socketserver running @ port: 8080');
     });
   }
 });

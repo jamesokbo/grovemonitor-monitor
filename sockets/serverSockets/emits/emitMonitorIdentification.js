@@ -1,6 +1,6 @@
 var Monitor=require('../../../server/models/monitor.js');
 var errors=require('../../../errors.js');
-var envVariables=require('../../../../envVariables.js');
+var envVariables=require(__dirname+'/../../../envVariables.js');
 
 module.exports=function(data,monitorSocket,serverSocket,fn){
     if(envVariables.serverConnectionStatus){
