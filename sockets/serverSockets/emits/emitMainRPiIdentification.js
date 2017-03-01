@@ -13,7 +13,7 @@ module.exports=function(socket){
     }
     constants.MAINRPI_ID=data;
     console.log("mainRPiID: "+ data);
-    socket.emit('mainRPiIdentification', {mainRPiID: constants.MAINRPI_ID}, function(res,err){
+    socket.emit('mainRPiIdentification', {mainRPiID: constants.MAINRPI_ID}, function(err,res){
       if(err){
         console.log(err);
       }
@@ -31,7 +31,7 @@ module.exports=function(socket){
           envVariables.serverConnectionStatus=true;
           //MainRPi states what monitors are currently connected to it for the server to identify them
           for(var i=0; i<envVariables.monitors.length;i++){
-            emitMonitorIdentification({monitorID:envVariables.monitorIDs[i]},envVariables.monitors[i],socket,function(res,err){
+            emitMonitorIdentification({monitorID:envVariables.monitorIDs[i]},envVariables.monitors[i],socket,function(err,res){
               if(err){
                 //TODO: Log error in file
               }
@@ -43,7 +43,7 @@ module.exports=function(socket){
               throw err;
             }
             for(var i=0; i<docs.length;i++){
-              emitRReading(socket,docs[i],function(res,err){
+              emitRReading(socket,docs[i],function(err,res){
                 if(err){
                   //TODO: Log error in file
                 }

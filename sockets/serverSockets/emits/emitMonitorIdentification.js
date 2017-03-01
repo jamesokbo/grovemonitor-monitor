@@ -19,7 +19,7 @@ module.exports=function(data,monitorSocket,serverSocket,fn){
                         if(err){
                             throw err;
                         }
-                        fn(mon);
+                        fn(null,mon);
                     });
                 });
             }
@@ -34,19 +34,19 @@ module.exports=function(data,monitorSocket,serverSocket,fn){
                             throw err;
                         }
                         //success
-                        fn(mon);
+                        fn(null,mon);
                     });
                 });
             }
             else{
                 //This means that the monitor sent an ID but it's not identified by the server
-                fn(null,errors.m003);
+                fn(errors.m003);
                 monitorSocket.disconnect();
             }
         });
     }
     else{
         //Lost connection to server
-        fn(null,errors.m004);
+        fn(errors.m004);
     }
 };

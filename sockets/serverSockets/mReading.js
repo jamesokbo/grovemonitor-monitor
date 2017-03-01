@@ -11,7 +11,7 @@ module.exports = function(socket){
         if(err){
           throw err;
         }
-        fn(res);
+        fn(null,res);
       });
     }
     else{
@@ -20,10 +20,10 @@ module.exports = function(socket){
           throw err;
         }
         if(docs.length!=0){
-          fn(null,errors.m001);
+          fn(errors.m001);
         }
         else{
-          fn(null,errors.m002);
+          fn(errors.m002);
         }
       });
     }

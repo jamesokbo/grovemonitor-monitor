@@ -25,7 +25,6 @@ var Monitor=require('./server/models/monitor');
 var serverSocket=require('socket.io-client')(constants.SERVER_URL);
 require('./sockets/serverSockets/connection.js')(serverSocket);
 require('./sockets/serverSockets/mReading.js')(serverSocket);
-require('./sockets/serverSockets/changeReservoirSize.js')(serverSocket);
 require('./sockets/serverSockets/disconnect.js')(serverSocket);
 //require('./sockets/serverSockets/editLBound.js')(serverSocket);
 //TODO: Test 'editLBound' script and create 'editUBound'

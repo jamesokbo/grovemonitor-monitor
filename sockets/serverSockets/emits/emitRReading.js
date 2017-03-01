@@ -6,15 +6,15 @@ var errors=require(__dirname+'/../../../errors.js');
 
 module.exports=function(serverSocket,reading,fn){
    if(envVariables.serverConnectionStatus){
-      serverSocket.emit('rReading',reading,function(res,err){
+      serverSocket.emit('rReading',reading,function(err,res){
          if(err){
             throw err;
          }
-         fn(res);
+         fn(null,res);
       });
    }
    else{
       //lost connection of server
-      fn(null,errors.m004);
+      fn(errors.m004);
    }
 };
