@@ -1,2 +1,2 @@
-#Main Raspberry
-This Raspberry holds the communication between the server and the other RPis. It is, so to speak, the brain of the Monitor Side.
+#Monitor
+This Raspberry holds the communication between the sensors attached to it and the Main Raspberry. It is the lowest inteligent level on the Monitor Side.

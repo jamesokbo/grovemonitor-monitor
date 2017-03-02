@@ -1,5 +1,5 @@
 module.exports={
-  SERVER_URL:'www.grovemonitor-server-jamesokbo.c9users.io:8081',
-  MAINRPI_ID:'',
-  MONITOR_TIMEOUT:20000
+  MAINRPI_URL:'https://grovemonitor-monitor-jamesokbo.c9users.io:8080',
+  MONITOR_ID:'',
+  MAINRPI_TIMEOUT:20000
 };

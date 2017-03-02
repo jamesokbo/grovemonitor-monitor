@@ -7,9 +7,9 @@ var Reading=require(__dirname+'/../../server/models/reading.js');
 
 module.exports = function(socket){
   socket.on('disconnect',function(){
-    envVariables.serverConnectionStatus=false;
+    envVariables.mainRPiConnectionStatus=false;
     var timeout=1000;
-    async.whilst(function(){return !envVariables.serverConnectionStatus},
+    async.whilst(function(){return !envVariables.mainRPiConnectionStatus},
     function(cb){
         console.log('attempting to reconnect');
         setTimeout(function(){
