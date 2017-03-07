@@ -18,19 +18,44 @@ var Monitor=require('./server/models/monitor');
 var Reading=require('./server/models/reading');
 
 var mainRPiSocket=require('socket.io-client')(constants.MAINRPI_URL);
-require('./sockets/serverSockets/connection.js')(mainRPiSocket);
-require('./sockets/serverSockets/mReading.js')(mainRPiSocket);
-require('./sockets/serverSockets/disconnect.js')(mainRPiSocket);
+require('./sockets/mainRPiSockets/connection.js')(mainRPiSocket);
+require('./sockets/mainRPiSockets/mReading.js')(mainRPiSocket);
+require('./sockets/mainRPiSockets/disconnect.js')(mainRPiSocket);
 
-async.whilst(function(){return !envVariables.serverConnectionStatus},
-  function(cb){
-    console.log('attempting to connect');
-    setTimeout(function(){
-       mainRPiSocket.connect();
-       cb();
-    },1000); 
+Monitor.find({},function(err,docs){
+  if(err){
+    throw err;
   }
-);
+  if(docs.length>0){
+    constants.MONITOR_ID=docs[0].monitorID;
+  }
+  else{
+    constants.MONITOR_ID="";
+  }
+  
+  
+  //Initialize server
+  Monitor.find({},function(err,docs){
+      if(err){
+        throw err;
+      }
+      if(docs.length>0){
+        constants.MONITOR_ID=docs[0].monitorID;  
+      }
+      else{
+        constants.MONITOR_ID='';
+      }
+  });
+  
+  async.whilst(function(){return !envVariables.mainRPiConnectionStatus},
+    function(cb){
+      setTimeout(function(){
+         mainRPiSocket.connect();
+         cb();
+      },5000); 
+    }
+  );
+});
 
 //Initialize server
 http.listen(8181,function(){

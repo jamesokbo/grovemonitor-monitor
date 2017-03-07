@@ -1,53 +1,60 @@
-var fs=require('fs');
-var async=require('async');
 var constants= require(__dirname+'/../../constants.js');
 var envVariables=require(__dirname+'/../../envVariables.js');
 var Reading=require(__dirname+'/../../server/models/reading.js');
 var Monitor=require(__dirname+'/../../server/models/monitor.js');
-
+var emitRReading=require(__dirname+'/emits/emitRReading');
 
 module.exports = function(socket){
   socket.on('connect',function(){
-    var data={
-      monitorID:constants.MONITOR_ID
-    };
-    if(envVariables.mainRPiConnectionStatus){
-      socket.emit('monitorIdentification',data,function(err, res) {
-          if(err){
-              throw err; //TODO: Log the error in a log file
-          }
-          if(res.status && !res.new){
-              //This means that the monitor had already been identified by the server
-                  Monitor.update({},{$set:{status:true}},function(err){
-                      if(err){
-                          throw err;
-                      }
-                      envVariables.mainRPiConnectionStatus=true;
-                  });
-          }
-          if(res.status && res.new){
-              //This means that the monitor had never been identified by the server
-              Monitor.save(function(err,mon){
-                  if(err){
-                      throw err;
-                  }
-                  Monitor.update({_id:mon._id},{$set:{monitorID:res.monitorID,mainRPiID:res.mainRPiID}},function(err){
-                      if(err){
-                          throw err;
-                      }
-                      socket.disconnect();
-                  });
+    socket.emit('monitorIdentification', {monitorID: constants.MONITOR_ID}, function(err,res){
+      if(err){
+        console.log(err);
+      }
+      else{
+        if(res.status){
+          if(res.new){
+            var monitor= new Monitor();
+            monitor.save(function(err,mon){
+              if(err){
+                throw err;
+              }
+              Monitor.update({_id:mon._id},{$set:{monitorID:res.monitorID}},function(err,response){
+                if(err){
+                  throw err;
+                }
+                constants.MONITOR_ID=res.monitorID;
+                socket.disconnect();
               });
+            });
           }
           else{
-              //This means that the monitor sent an ID but it's not identified by the server
-              
+            envVariables.mainRPiConnectionStatus=true;
+            
+            //MainRPi passes readings obtained while server connection was down and removes them afterwards
+            Reading.find({},function(err,docs){
+              if(err){
+                throw err;
+              }
+              for(var i=0; i<docs.length;i++){
+                emitRReading(socket,docs[i],function(err,res){
+                  if(err){
+                    //TODO: Log error in file
+                  }
+                  if(res.status){
+                    Reading.remove({_id:docs[i]._id},function(err,removed){
+                      if(err){
+                        throw err;
+                      }
+                    });
+                  }
+                });
+              }
+            });
           }
-      });
-    }
-    else{
-        //Lost connection to server
-        //TODO: Log error to log file
-    }
-  }); 
+        }
+      }
+      
+    });
+  });
 };
+

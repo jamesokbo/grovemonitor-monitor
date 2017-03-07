@@ -7,17 +7,15 @@ var Reading=require(__dirname+'/../../server/models/reading.js');
 
 module.exports = function(socket){
   socket.on('disconnect',function(){
+    console.log('disconnected from mainRPi!');
+    async.whilst(function(){return !envVariables.serverConnectionStatus},
+        function(cb){
+            setTimeout(function(){
+                socket.connect();
+                cb();
+            },1000); 
+        }
+    );
     envVariables.mainRPiConnectionStatus=false;
-    var timeout=1000;
-    async.whilst(function(){return !envVariables.mainRPiConnectionStatus},
-    function(cb){
-        console.log('attempting to reconnect');
-        setTimeout(function(){
-           socket.connect();
-           cb();
-       },timeout); 
-    },function(){
-        timeout=timeout+1000;
-    });
   });
 };
