@@ -1,7 +1,7 @@
 var constants= require(__dirname+'/../../constants.js');
 var envVariables=require(__dirname+'/../../envVariables.js');
-var Reading=require(__dirname+'/../../server/models/reading.js');
-var Monitor=require(__dirname+'/../../server/models/monitor.js');
+var Reading=require(__dirname+'/../../models/reading.js');
+var Monitor=require(__dirname+'/../../models/monitor.js');
 var emitRReading=require(__dirname+'/emits/emitRReading');
 
 module.exports = function(socket){
