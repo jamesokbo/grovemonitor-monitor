@@ -25,7 +25,6 @@ module.exports=function(socket){
                     throw err;
                   }
                   res.status=true;
-                  
                   fn(null,res);
                 });
             }
