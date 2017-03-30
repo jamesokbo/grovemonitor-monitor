@@ -18,7 +18,7 @@ var constants=require('./server/constants.js');
 var Monitor=require('./server/models/monitor');
 var Reading=require('./server/models/reading');
 
-var mainRPiSocket=require('socket.io-client')(constants.MAINRPI_URL);
+var mainRPiSocket=require('socket.io-client')(constants.MAINRPI_URL, {reconnect:true});
 require('./server/sockets/mainRPiSockets/connection.js')(mainRPiSocket);
 require('./server/sockets/mainRPiSockets/addSensor.js')(mainRPiSocket);
 require('./server/sockets/mainRPiSockets/mReading.js')(mainRPiSocket);
@@ -38,15 +38,6 @@ Monitor.find({},function(err,docs){
     constants.MONITOR_ID='';
   }
 });
-
-async.whilst(function(){return !envVariables.mainRPiConnectionStatus},
-  function(cb){
-    setTimeout(function(){
-      mainRPiSocket.connect();
-      cb();
-    },5000); 
-  }
-);
 
 http.listen(8181,function(){
   console.log('Monitor running @ port: 8080');
