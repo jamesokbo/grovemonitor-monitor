@@ -53,8 +53,6 @@ module.exports = function(socket){
           }
         }
       }
-      
     });
   });
 };
-
