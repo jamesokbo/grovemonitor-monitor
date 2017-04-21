@@ -3,9 +3,11 @@ var envVariables=require(__dirname+'/../../envVariables.js');
 var Reading=require(__dirname+'/../../models/reading.js');
 var Monitor=require(__dirname+'/../../models/monitor.js');
 var emitRReading=require(__dirname+'/emits/emitRReading');
+var statuscheck=require('socketio-statuscheck');
 
 module.exports = function(socket){
   socket.on('connect',function(){
+    statuscheck(socket,'client');
     socket.emit('monitorIdentification', {monitorID: constants.MONITOR_ID}, function(err,res){
       if(err){
         console.log(err);
